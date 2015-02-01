@@ -4,7 +4,7 @@
     "version": "1.0",
     "background": {
         "persistent": true,
-        "scripts": ["bgscript.js"]
+        "scripts": ["backgroundscript.js"]
     },
     "browser_action": {
         "default_title": "Point you in the right direction",
