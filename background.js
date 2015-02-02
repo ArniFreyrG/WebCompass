@@ -64,42 +64,50 @@ var info = {
 	dom: null
 };
 
-
-chrome.browserAction.onClicked.addListener(function(tab){
-	getCurrentTabUrl(function(url){
-		info.url = url;
-		// regex to find hostname from url
-		dom = url.match(/^[\w-]+:\/*\[?([\w\.:-]+)\]?(?::\d+)?/)[1];
-		info.dom = dom;
-		var searchUrl = "http://freegeoip.net/json/" + dom;
-		info.latThere = searchUrl;
-		findCoords(searchUrl, function(latitude, longitude, country, city){
-			if(!latitude){info.latThere = "BÍÐA AÐEINS!!";}
-			info.latThere = latitude;
-			info.lonThere = longitude;
-			info.countryThere = country;
-			info.cityThere = city
-			// finding you (yes, YOU!)
-			findCoords("http://freegeoip.net/json/", function(latitude2, longitude2, country2, city2){
-				info.latYou = latitude2;
-				info.lonYou = longitude2;
-				info.countryYou = country2;
-				info.cityYou = city2;
-				var direction = getDir(latitude2,longitude2,latitude,longitude);
-				info.angle = direction;
-				chrome.tabs.executeScript({ file: 'contentscript.js' }); 
-				chrome.tabs.insertCSS({ file: 'styles.css'});
-				
-			}, function(errorMessage) {
-		      info.latTere = 'Cannot find you. ' + errorMessage;
-		    });
-		}, function(errorMessage) {
-			info.latThere ='Cannot find website. ' + errorMessage;
-	    });
-		if(!info.latYou){info.latYou = "failed";}
+chrome.tabs.executeScript(null, {
+	file: 'jquery-2.1.3.min.js'}, 
+	function() {chrome.tabs.executeScript(null, {
+		file: "underscore-min.js"},
+		function() {chrome.tabs.executeScript(null, {
+			file: 'backbone-min.js'},
+			function(){console.log("hér2");
+			chrome.browserAction.onClicked.addListener(function(tab){
+				getCurrentTabUrl(function(url){
+					info.url = url;
+					// regex to find hostname from url
+					dom = url.match(/^[\w-]+:\/*\[?([\w\.:-]+)\]?(?::\d+)?/)[1];
+					info.dom = dom;
+					var searchUrl = "http://freegeoip.net/json/" + dom;
+					info.latThere = searchUrl;
+					findCoords(searchUrl, function(latitude, longitude, country, city){
+						if(!latitude){info.latThere = "BÍÐA AÐEINS!!";}
+						info.latThere = latitude;
+						info.lonThere = longitude;
+						info.countryThere = country;
+						info.cityThere = city
+						// finding you (yes, YOU!)
+						findCoords("http://freegeoip.net/json/", function(latitude2, longitude2, country2, city2){
+							info.latYou = latitude2;
+							info.lonYou = longitude2;
+							info.countryYou = country2;
+							info.cityYou = city2;
+							var direction = getDir(latitude2,longitude2,latitude,longitude);
+							info.angle = direction;
+							chrome.tabs.executeScript({ file: 'contentscript.js' }); 
+							chrome.tabs.insertCSS({ file: 'styles.css'});
+							
+						}, function(errorMessage) {
+					      info.latTere = 'Cannot find you. ' + errorMessage;
+					    });
+					}, function(errorMessage) {
+						info.latThere ='Cannot find website. ' + errorMessage;
+				    });
+					if(!info.latYou){info.latYou = "failed";}
+				});
+			});
+		});
 	});
 });
-
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 	    console.log("MESSAGE RECEIVED");
