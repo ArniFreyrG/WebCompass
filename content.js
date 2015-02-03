@@ -21,7 +21,7 @@ chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
 				this.page = options.page;
 			},
 			url: function(){
-				return "http://freegeoip.net/json/" + this.page;
+				return "https://freegeoip.net/json/" + this.page;
 			}
 		});
 		var here = new model({page:""});
