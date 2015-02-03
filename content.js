@@ -14,7 +14,7 @@ console.log(jQuery.fn.jquery);
 chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
 	console.log("MESSAGE SENT");
 	if(!response){console.log("NO REPLY");}	
-    else{ 
+    	else{ 
     	dom = response.url.match(/^[\w-]+:\/*\[?([\w\.:-]+)\]?(?::\d+)?/)[1];
 		var model = Backbone.Model.extend({
 			initialize: function(options){
