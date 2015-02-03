@@ -15,12 +15,10 @@ function getCurrentTabUrl(callback) {
 var urlUni;
 
 chrome.browserAction.onClicked.addListener(function(tab){
-	chrome.tabs.executeScript(null, {
-	file: 'jquery-2.1.3.min.js'}, 
-	function() {chrome.tabs.executeScript(null, {
-		file: 'underscore-min.js'},
-		function() {chrome.tabs.executeScript(null, {
-			file: 'backbone-min.js'},
+	chrome.tabs.executeScript(null, {file: 'jquery-2.1.3.min.js'}, 
+	function() {chrome.tabs.executeScript(null, {file: 'underscore-min.js'},
+		function() {chrome.tabs.executeScript(null, {file: 'backbone-min.js'},
+			function(){
 				getCurrentTabUrl(function(url){
 					// regex to find hostname from url
 					urlUni = url;
