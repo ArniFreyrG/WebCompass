@@ -7,6 +7,16 @@ function getDir(lat1, lon1, lat2, lon2){
 	return -((Math.atan2(x,y) * 180 / Math.PI)-90);
 }
 
+
+var model = Backbone.Model.extend({
+	initialize: function(options){
+		this.page = options.page;
+	},
+	url: function(){
+		return "https://freegeoip.net/json/" + this.page;
+	}
+});
+
 console.log("þar");
 console.log(Backbone.VERSION);
 console.log(jQuery.fn.jquery);
@@ -14,16 +24,8 @@ console.log(jQuery.fn.jquery);
 chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
 	console.log("MESSAGE SENT");
 	if(!response){console.log("NO REPLY");}	
-    	else{ 
-    	dom = response.url.match(/^[\w-]+:\/*\[?([\w\.:-]+)\]?(?::\d+)?/)[1];
-		var model = Backbone.Model.extend({
-			initialize: function(options){
-				this.page = options.page;
-			},
-			url: function(){
-				return "https://freegeoip.net/json/" + this.page;
-			}
-		});
+    else{ 
+		dom = response.url.match(/^[\w-]+:\/*\[?([\w\.:-]+)\]?(?::\d+)?/)[1];
 		var here = new model({page:""});
 		var there = new model({page: dom});
 		here.fetch({
@@ -31,13 +33,32 @@ chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
 				there.fetch({
 					success:function(){
 				    	var angle = getDir(here.get("latitude"),here.get("longitude"),there.get("latitude"),there.get("longitude"));
-				    	document.body.innerHTML = '<div id="container"><iframe width="100%" height="100%" src=' + response.url + '></iframe><div id="hidden-container"><div id="needle-container">&#8682;<br>THIS SITE IS <i>THAT</i> WAY!<br><div id="moreinfo"></div><script> function info(){document.getElementById("moreinfo").innerHTML = "hér má sjá meiri upplýsingar"}</script><button id="infobutton" onclick="info()">ýta hér</button></div></div></div>';
-				    	document.body.style["-webkit-transform"] = "rotate(" + angle + "deg)";
-						
-						
+				    	var rotatorHTML = chrome.extension.getURL("rotator.html");
+				    	console.log(rotatorHTML);
+				    	$("body").load(rotatorHTML,function(){
+				    		$("iframe").attr({"src": response.url});
+				    		console.log(response.url);
+					    	jQuery("iframe, #hidden-container").css("-webkit-transform", "rotate(" + angle + "deg)");
+					    	jQuery("html, body").css("background-color", "yellow");
+					    	$('#blah').css({height:'20px', overflow:'hidden'});
+							$('#blah').on('click', function() {
+							    var $this = $(this);
+							    if ($this.data('open')) {
+							        $this.animate({height:'20px'});
+							        $this.data('open', 0);
+
+							    }
+							    else {
+							        $this.animate({height:'300px'});
+							        $this.data('open', 1);
+							    }
+							});
+				    		});
 					}
 				});
 			}
 		});	
-    }
+    	}
 });
+
+
