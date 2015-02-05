@@ -20,7 +20,6 @@ chrome.browserAction.onClicked.addListener(function(tab){
 		function() {chrome.tabs.executeScript(null, {file: 'backbone-min.js'},
 			function(){
 				getCurrentTabUrl(function(url){
-					// regex to find hostname from url
 					urlUni = url;
 					chrome.tabs.executeScript({ file: 'contents.js' }); 
 					chrome.tabs.insertCSS({ file: 'styles.css'});
