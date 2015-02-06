@@ -4,7 +4,7 @@ html, body, iframe, #hidden-container, #compass {
 	overflow: hidden;
 	overflow-x: hidden;
 	overflow-y: hidden;
-	background-color: yellow;
+	background-color: #d3d3d3;
 	height: 100%;
 	width: 100%;
     clip: auto;
@@ -44,7 +44,7 @@ iframe {
 	margin: 10px;
 	text-align: center;
 	/* styling */
-	background-color: #8F1C10;
+	background-color: #eeeeee;
 	border-radius: 10px;
 	font-size: 30px;
 }
