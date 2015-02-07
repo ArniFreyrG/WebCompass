@@ -7,6 +7,18 @@ function getDir(lat1, lon1, lat2, lon2){
 	return -((Math.atan2(x,y) * 180 / Math.PI)-90);
 }
 
+function getMid(lat1, lng1, lat2, lng2){
+	var a = [0,0];
+	d = (lng2-lng1) * Math.PI / 180;
+	p1 = lat1 * Math.PI / 180;
+	p2 = lat2 * Math.PI / 180;
+	var x = Math.cos(p2) * Math.cos(d);
+	var y = Math.cos(p2) * Math.sin(d);
+	var p3 = Math.atan2(Math.sin(p1) + Math.sin(p2), Math.sqrt((Math.cos(p1)+x)*(Math.cos(p1)+x) + y*y));
+	var d2 = lng1 + Math.atan2(y, Math.cos(p1)+x);
+	var a = [p3,d2];
+	return a;
+}
 
 var model = Backbone.Model.extend({
 	initialize: function(options){
