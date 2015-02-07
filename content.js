@@ -38,8 +38,13 @@ chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
 				    	$("body").load(rotatorHTML,function(){
 				    		$("iframe").attr({"src": response.url});
 				    		console.log(response.url);
-					    	jQuery("iframe, #hidden-container").css("-webkit-transform", "rotate(" + angle + "deg)");
-					    	jQuery("html, body").css("background-color", "yellow");
+					    	setTimeout(function(){
+				    			$("iframe, #hidden-container").animate( {borderSpacing: angle}, {step: function(now,fx){
+					    			$(this).css({"-webkit-transform": 'rotate(' + now + 'deg)'}, "fast");
+					    			},
+					    			duration: 7000
+					    		}), "linear";
+				    		}, 500);
 					    	$('#blah').css({height:'20px', overflow:'hidden'});
 							$('#blah').on('click', function() {
 							    var $this = $(this);
