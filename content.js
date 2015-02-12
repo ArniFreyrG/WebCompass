@@ -65,12 +65,12 @@ chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
 					    		$('#lngThere').text(there.get("longitude"));
 
 					    		// more/less info animation
-						    	$('#tables').css({height:'17px', overflow:'hidden'});
+						    	$('#tables').css({height:'16px', overflow:'hidden'});
 								$('#info').on('click', function() {
 									var $this = $(this);
 								    var $tables = $('#tables');
 								    if ($tables.data('open')) {
-								        $tables.animate({height:'17px'});
+								        $tables.animate({height:'16px'});
 								        $tables.data('open', 0);
 								        $this.text('more info');
 
