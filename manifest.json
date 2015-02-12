@@ -1,29 +1,31 @@
 {
     "manifest_version": 2,
-    "name": "Web Pointer",
+    "name": "Web Compass",
     "version": "1.0",
 
-    "web_accessible_resources": ["jquery-2.1.3.min.map", "underscore-min.map", "backbone-min.map"], 
+    "web_accessible_resources": ["jquery-2.1.3.min.map", "underscore-min.map", "backbone-min.map", "rotator.html", "loading.html", "loader2.gif"], 
 
     "content_scripts": [{
         "matches": ["http://*/*", "https://*/*"],
         "js": ["jquery-2.1.3.min.js", "underscore-min.js", "backbone-min.js"],
         "run_at": "document_start"
         }],
-
+        
     "background": {
-        "persistent": true,
+        "persistent": true,      
         "scripts": ["background.js"]
     },
-    
     "browser_action": {
-        "default_title": "Point you in the right direction",
+        "default_icon": "compass_rose_icon.png",
+        "default_title": "Find this website!",
         "scripts": ["content.js"],
         "css": ["styles.css"]
     },
-
+    
     "permissions": [
     "tabs",
     "activeTab",
-    "<all_urls>"]
+    "<all_urls>",
+    "webRequest",
+    "webRequestBlocking"] 
 }
