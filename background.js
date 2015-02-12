@@ -57,7 +57,7 @@ chrome.webRequest.onHeadersReceived.addListener(
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 	    console.log("MESSAGE RECEIVED");
-	    sendResponse({url: urlUni});
+	    sendResponse(data);
 	} 
 );
 
