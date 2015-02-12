@@ -10,4 +10,3 @@ Web Compass uses your ip to find your current latitude/longitude coordinates, as
 The Pope Agrees!
 
 NOTE: The Earth is ROUND, not flat, so directions may seem unintuitive. All directions are "as the bird flies".
-https://github.com/ArniFreyrG/WebCompass/blob/master/ThePopeAgrees.png?raw=true
